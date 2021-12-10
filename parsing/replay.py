@@ -6,7 +6,6 @@ from . import player
 
 
 class Stage(enum.IntEnum):
-    
     INVALID = -1
     MENU = 0
     TREETOP_LODGE = 1
@@ -30,7 +29,6 @@ class Stage(enum.IntEnum):
 
 
 class StageType(enum.IntEnum):
-
     INVALID = -1
     BASIC = 0
     AETHER = 1
@@ -40,60 +38,77 @@ REGEX = r'H.*\n.*\n'
 PATTERN = re.compile(REGEX)
 DATE_FORMAT = '%H%M%S%d%m%Y'
 
+
 def is_starred(buffer):
     return bool(int(buffer[0]))
 
+
 def get_version(buffer):
     return (
-        int(buffer[1:3]), 
+        int(buffer[1:3]),
         int(buffer[3:5]),
         int(buffer[5:7])
     )
+
 
 def get_date(buffer):
     return datetime.datetime.strptime(
         buffer[7:21], DATE_FORMAT)
 
+
 def get_name(buffer):
     return buffer[21:53].rstrip()
+
 
 def get_description(buffer):
     return buffer[53:193].rstrip()
 
+
 def _get_unidentified_metadata_1(buffer):
     return buffer[194:204]
+
 
 def get_stage_type(buffer):
     return StageType(int(buffer[204]))
 
+
 def get_stage(buffer):
-    return Stage(int(buffer[205:207]))
+    return Stage(int(buffer[214:217]))
+
 
 def get_stock(buffer):
-    return int(buffer[207:209])
+    return int(buffer[217:219])
+
 
 def get_time(buffer):
-    return int(buffer[209:211])
+    return int(buffer[219:221])
+
 
 def is_teams_enabled(buffer):
-    return bool(int(buffer[212]))
+    return bool(int(buffer[222]))
+
 
 def is_friendly_fire_enabled(buffer):
-    return bool(int(buffer[213]))
+    return bool(int(buffer[223]))
+
 
 def is_online(buffer):
-    return bool(int(buffer[214]))
+    return bool(int(buffer[224]))
+
 
 def _get_unidentified_metadata_2(buffer):
-    return int(buffer[215:218]), int(buffer[218:222])
+    return int(buffer[225:228]), int(buffer[228:232])
+
 
 def get_player_data(buffer):
     return PATTERN.findall(buffer)
+
 
 def get_all_frame_data(buffer):
     return [
         player.get_frame_data(x) for x in get_player_data(buffer)
     ]
+
 
 def get_duration(all_frame_data):
     return max([
@@ -138,15 +153,15 @@ class Replay:
     @property
     def date(self):
         return get_date(self._buffer)
-    
+
     @property
     def name(self):
         return get_name(self._buffer)
-    
+
     @property
     def description(self):
         return get_description(self._buffer)
-    
+
     @property
     def _unknown_1(self):
         return _get_unidentified_metadata_1(self._buffer)
@@ -154,7 +169,7 @@ class Replay:
     @property
     def stage_type(self):
         return get_stage_type(self._buffer)
-    
+
     @property
     def stage(self):
         return get_stage(self._buffer)
@@ -162,7 +177,7 @@ class Replay:
     @property
     def stock(self):
         return get_stock(self._buffer)
-    
+
     @property
     def time(self):
         return get_time(self._buffer)
@@ -170,11 +185,11 @@ class Replay:
     @property
     def is_teams_enabled(self):
         return is_teams_enabled(self._buffer)
-    
+
     @property
     def is_friendly_fire_enabled(self):
         return is_friendly_fire_enabled(self._buffer)
-    
+
     @property
     def is_online(self):
         return is_online(self._buffer)

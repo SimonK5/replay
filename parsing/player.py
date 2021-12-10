@@ -5,7 +5,6 @@ from . import frame
 
 
 class Character(enum.IntEnum):
-    
     INVALID = -1
     ERROR_1 = 0
     ERROR_2 = 1
@@ -20,33 +19,40 @@ class Character(enum.IntEnum):
     ORI = 10
     RANNO = 11
     CLAIREN = 12
+    SYLVANOS = 13
+    ELLIANA = 14
 
-    
+
 REGEX = r'(\d+[a-x|z|A-X|Z]+y[\d| ]{3}[a-x|z|A-X|Z]*)|(\d*y[\d| ]{3}[a-x|z|A-X|Z]*)|(\d+[a-x|z|A-X|Z]+)'
 PATTERN = re.compile(REGEX)
+
 
 def is_human(buffer):
     return buffer[0] == 'H'
 
+
 def get_name(buffer):
-    return buffer[1:34].rstrip()
+    return buffer[1:33].rstrip()
+
 
 def get_tag(buffer):
-    return buffer[34:39].rstrip()
+    return buffer[33:39].rstrip()
+
 
 def get_character(buffer):
-    return Character(int(buffer[39:41]))
+    return Character(int(buffer[39:42]))
+
 
 def get_frame_data(buffer):
     return [
         x for x in PATTERN.split(
-            buffer.split('\n')[1].rstrip()) 
+            buffer.split('\n')[1].rstrip())
         if x
     ]
 
 
 class Player:
-    
+
     def __init__(self, buffer):
         self._buffer = buffer
 
