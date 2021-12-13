@@ -38,6 +38,7 @@ class InputEvent:
     RIGHT_TAP = 'RIGHT_TAP'
     ANGLES_ENABLED = 'ANGLES_ENABLED'
     ANGLES_DISABLED = 'ANGLES_DISABLED'
+    UNKNOWN = 'UNKNOWN'
 
     _token_to_input_event = {
         'J': JUMP_PRESS,
@@ -72,7 +73,12 @@ class InputEvent:
         'r': RIGHT_RELEASE,
         'I': RIGHT_TAP,
         'Z': ANGLES_ENABLED,
-        'z': ANGLES_DISABLED
+        'z': ANGLES_DISABLED,
+        'p': UNKNOWN,
+        'T': UNKNOWN,
+        't': UNKNOWN,
+        'o': UNKNOWN
+        # tokens p, t, T, and o were added since repository was made. Unknown function for each
     }
 
     @classmethod
@@ -105,6 +111,7 @@ class ActionType:
     TAP_RIGHT = "Tap Right"
     ANGLES_ENABLED = "Angles Enabled"
     ANGLE = "Angle"
+    UNKNOWN = "Unknown"
 
     _input_event_to_action_type = {
         InputEvent.JUMP_PRESS: (True, JUMP),
@@ -138,7 +145,8 @@ class ActionType:
         InputEvent.RIGHT_RELEASE: (False, RIGHT),
         InputEvent.RIGHT_TAP: (True, TAP_RIGHT),
         InputEvent.ANGLES_ENABLED: (True, ANGLES_ENABLED),
-        InputEvent.ANGLES_DISABLED: (False, ANGLES_ENABLED)
+        InputEvent.ANGLES_DISABLED: (False, ANGLES_ENABLED),
+        InputEvent.UNKNOWN: (False, UNKNOWN)
     }
 
     @classmethod
