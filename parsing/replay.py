@@ -26,7 +26,16 @@ class Stage(enum.IntEnum):
     STAGE_NAME = 16
     NEO_FIRE_CAPITAL = 17
     SWAMPY_ESTUARY = 18
-
+    FOREST_FLOOR = 19
+    JULESVALE = 20
+    TROUPPLE_POND = 21
+    PRACTICE_ROOM = 22
+    AETHER_HIGH = 23
+    PRIDEMOOR_KEEP = 24
+    FROZEN_GATES = 25
+    TUTORIAL_GRID = 26
+    ROA_RING = 27
+    DIAMOND_GROVE = 36
 
 class StageType(enum.IntEnum):
     INVALID = -1
