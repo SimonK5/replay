@@ -21,6 +21,7 @@ class Character(enum.IntEnum):
     CLAIREN = 12
     SYLVANOS = 13
     ELLIANA = 14
+    SHOVEL_KNIGHT = 15
 
 
 REGEX = r'(\d+[a-x|z|A-X|Z]+y[\d| ]{3}[a-x|z|A-X|Z]*)|(\d*y[\d| ]{3}[a-x|z|A-X|Z]*)|(\d+[a-x|z|A-X|Z]+)'

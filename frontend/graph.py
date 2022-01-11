@@ -1,6 +1,6 @@
 import stats.player_stats as ps
 import io
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import matplotlib.pyplot as plt
 from parsing.replay import Stage
 
@@ -28,6 +28,7 @@ def filter_extra_stage_freqs(stage_freq):
 def stage_graph(count):
     filtered_stage_freqs = filter_extra_stage_freqs(count)
     plt.cla()
+    plt.figure(figsize=(6, 7))
     plt.bar(stage_names, filtered_stage_freqs)
     ax = plt.subplot()
     plt.setp(ax.get_xticklabels(), rotation=30, ha='right')
@@ -66,23 +67,38 @@ def character_graph(count, title):
     return im
 
 
-if __name__ == "__main__":
-    replays = [r for r in ps.get_replays("../replays") if len(r.players) == 2]
+def make_graphic(dir):
+    replays = [r for r in ps.get_replays(dir) if len(r.players) == 2]
     target_name = ps.get_target_player(replays)
     target_replays = [r for r in replays if any(p.name == target_name for p in r.players)]
-    y1, y2 = ps.player_char_count(target_replays, target_name)
+    my_chars, opp_chars = ps.player_char_count(target_replays, target_name)
 
-    im1 = character_graph(y1, "My Character Usage")
-    im2 = character_graph(y2, "Opponent Character Usage")
+    back_im = Image.new("RGB", (1200, 1080), (255, 255, 255))
+    draw = ImageDraw.Draw(back_im)
+    title_font = ImageFont.truetype("Arial.ttf", 75)
 
-    back_im = Image.new("RGB", (1920, 1080), (255, 255, 255))
+    draw.text((200, 10), "Your Replay Folder Stats", fill="black", align="center", font=title_font)
 
-    back_im.paste(im1, (10, 10))
-    back_im.paste(im2, (10, 500))
+    im1 = character_graph(my_chars, "My Character Usage")
+    im2 = character_graph(opp_chars, "Opponent Character Usage")
 
-    y3 = ps.stage_count(replays)
+    back_im.paste(im1, (10, 150))
+    back_im.paste(im2, (10, 640))
 
-    im3 = stage_graph(y3)
-    back_im.paste(im3, (600, 10))
+    stage_count = ps.stage_count(replays)
+
+    im3 = stage_graph(stage_count)
+    back_im.paste(im3, (600, 150))
+
+    apm = round(ps.avg_apm_recent(target_name, target_replays), ndigits=2)
+
+    text_font = ImageFont.truetype("Arial.ttf", 30)
+
+    draw.text((520, 100), "Last {} Matches".format(len(target_replays)), fill="black", font=text_font)
+    draw.text((642, 900), "Average APM (last 5 matches): {}".format(apm), fill="black", font=text_font)
 
     back_im.show()
+
+
+if __name__ == "__main__":
+    make_graphic("../replays/salmon-replays")

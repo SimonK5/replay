@@ -9,21 +9,24 @@ from collections import Counter
 
 def stage_count(replays):
     """ Counts the occurrences of each stage in a list of Replay instances. """
-    count = [0 for i in range(len(Stage))]
+    count = [0 for _ in range(len(Stage) - 1)]
 
     for replay in replays:
         if int(replay.stage) < 1:
             raise Exception("Invalid Replay", replay.name)
 
-        count[replay.stage] += 1
+        if replay.stage == Stage.DIAMOND_GROVE:
+            count[28] += 1
+        else:
+            count[replay.stage] += 1
 
     return count
 
 
 def player_char_count(replays, target_name):
 
-    target_count = [0 for i in range(len(Character))]
-    other_count = [0 for i in range(len(Character))]
+    target_count = [0 for _ in range(len(Character) - 3)]
+    other_count = [0 for _ in range(len(Character) - 3)]
 
     for replay in replays:
         print(target_name)
@@ -33,8 +36,8 @@ def player_char_count(replays, target_name):
         if int(target_player.character) < 2 or int(other_player.character) < 2:
             raise Exception("Invalid Character")
 
-        target_count[target_player.character] += 1
-        other_count[other_player.character] += 1
+        target_count[target_player.character - 2] += 1
+        other_count[other_player.character - 2] += 1
 
     return target_count, other_count
 
@@ -42,15 +45,12 @@ def player_char_count(replays, target_name):
 def get_replays(dir):
     """ Converts a directory of replay files into Replay instances. """
     replays = []
-    for subdir, dirs, files in os.walk(dir):
-        for filename in files:
-            filepath = subdir + os.sep + filename
-
-            if filename.endswith(".roa"):
-                replay = Replay(open(filepath).read())
-                replays.append(replay)
-
-    return replays
+    for filename in os.scandir(dir):
+        if filename.path.endswith(".roa"):
+            replay = Replay(open(filename).read())
+            replays.append(replay)
+    # reverse to get most recent replays first
+    return replays[::-1]
 
 
 def num_inputs(df):
@@ -68,7 +68,7 @@ def num_inputs(df):
     return count
 
 
-def inputs_per_minute(df):
+def actions_per_minute(df):
     n_inputs = num_inputs(df)
 
     return (3600 * n_inputs) / df.iloc[-1]["Frame"]
@@ -81,6 +81,19 @@ def get_names(players):
         names.append(player.name)
 
     return names
+
+
+def avg_apm_recent(target_name, target_replays, num=5):
+    cumulative_apm = 0
+
+    iterations = min(num, len(target_replays))
+
+    for i in range(iterations):
+        target_player = next(p for p in target_replays[i].players if p.name == target_name)
+        df = DataFrame(target_player.states)
+        cumulative_apm += actions_per_minute(df)
+
+    return cumulative_apm / iterations
 
 
 def get_target_player(replays):
@@ -101,7 +114,7 @@ def get_target_player(replays):
 
 
 if __name__ == "__main__":
-    replays = [r for r in get_replays("../replays") if len(r.players) == 2]
+    replays = [r for r in get_replays("../replays/salmon-replays") if len(r.players) == 2]
     # for replay in replays:
     #     print(replay.name)
     #     print(replay.stage)
@@ -121,4 +134,8 @@ if __name__ == "__main__":
     # get_target_player(replays)
     target_name = get_target_player(replays)
     target_replays = [r for r in replays if any(p.name == target_name for p in r.players)]
+    print(len(target_replays))
     print(player_char_count(target_replays, target_name))
+    print(stage_count(target_replays))
+
+    print(avg_apm_recent(target_name, target_replays, num=5))
