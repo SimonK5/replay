@@ -82,31 +82,31 @@ def get_stage_type(buffer):
 
 
 def get_stage(buffer):
-    return Stage(int(buffer[214:217]))
+    return Stage(int(buffer[215:218]))
 
 
 def get_stock(buffer):
-    return int(buffer[217:219])
+    return int(buffer[218:220])
 
 
 def get_time(buffer):
-    return int(buffer[219:221])
+    return int(buffer[220:222])
 
 
 def is_teams_enabled(buffer):
-    return bool(int(buffer[222]))
-
-
-def is_friendly_fire_enabled(buffer):
     return bool(int(buffer[223]))
 
 
-def is_online(buffer):
+def is_friendly_fire_enabled(buffer):
     return bool(int(buffer[224]))
 
 
+def is_online(buffer):
+    return bool(int(buffer[225]))
+
+
 def _get_unidentified_metadata_2(buffer):
-    return int(buffer[225:228]), int(buffer[228:232])
+    return int(buffer[226:229]), int(buffer[229:233])
 
 
 def get_player_data(buffer):

@@ -13,7 +13,7 @@ def stage_count(replays):
 
     for replay in replays:
         if int(replay.stage) < 1:
-            raise Exception("Invalid Replay", replay.name)
+            raise Exception("Invalid Replay: Incorrect Stage", replay.name)
 
         if replay.stage == Stage.DIAMOND_GROVE:
             count[28] += 1
@@ -29,7 +29,6 @@ def player_char_count(replays, target_name):
     other_count = [0 for _ in range(len(Character) - 3)]
 
     for replay in replays:
-        print(target_name)
         target_player = next(p for p in replay.players if p.name == target_name)
         other_player = next(p for p in replay.players if p.name != target_name)
 
@@ -42,13 +41,14 @@ def player_char_count(replays, target_name):
     return target_count, other_count
 
 
-def get_replays(dir):
+def get_replays(files):
     """ Converts a directory of replay files into Replay instances. """
     replays = []
-    for filename in os.scandir(dir):
-        if filename.path.endswith(".roa"):
-            replay = Replay(open(filename).read())
+    for file in files:
+        if file.filename.endswith(".roa"):
+            replay = Replay(file.read().decode('utf-8'))
             replays.append(replay)
+
     # reverse to get most recent replays first
     return replays[::-1]
 
@@ -115,23 +115,7 @@ def get_target_player(replays):
 
 if __name__ == "__main__":
     replays = [r for r in get_replays("../replays/salmon-replays") if len(r.players) == 2]
-    # for replay in replays:
-    #     print(replay.name)
-    #     print(replay.stage)
-    #
-    # print(stage_count(replays))
-    # print(player_char_count(replays, 1))
-    #
-    # start_time = time.time()
-    # for replay in replays:
-    #     player = replay.players[0]
-    #     df = DataFrame(player.states)
-    #     print(replay._unknown_2)
-    #     print("IPM:", inputs_per_minute(df))
-    #     # print(df)
-    #
-    # print("time to analyze {r} replays: {t}".format(r=len(replays), t=time.time()-start_time))
-    # get_target_player(replays)
+
     target_name = get_target_player(replays)
     target_replays = [r for r in replays if any(p.name == target_name for p in r.players)]
     print(len(target_replays))

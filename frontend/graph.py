@@ -3,6 +3,7 @@ import io
 from PIL import Image, ImageDraw, ImageFont
 import matplotlib.pyplot as plt
 from parsing.replay import Stage
+import base64
 
 rivals = ["Zetterburn", "Orcane", "Wrastor", "Kragg", "Forsburn", "Maypul", "Absa", "Etalus", "Ori", "Ranno",
               "Clairen", "Sylvanos", "Elliana", "Shovel Knight"]
@@ -67,8 +68,10 @@ def character_graph(count, title):
     return im
 
 
-def make_graphic(dir):
-    replays = [r for r in ps.get_replays(dir) if len(r.players) == 2]
+def make_graphic(files):
+    plt.switch_backend('Agg')
+
+    replays = [r for r in ps.get_replays(files) if len(r.players) == 2]
     target_name = ps.get_target_player(replays)
     target_replays = [r for r in replays if any(p.name == target_name for p in r.players)]
     my_chars, opp_chars = ps.player_char_count(target_replays, target_name)
@@ -83,7 +86,7 @@ def make_graphic(dir):
     im2 = character_graph(opp_chars, "Opponent Character Usage")
 
     back_im.paste(im1, (10, 150))
-    back_im.paste(im2, (10, 640))
+    back_im.paste(im2, (10, 540))
 
     stage_count = ps.stage_count(replays)
 
@@ -97,7 +100,9 @@ def make_graphic(dir):
     draw.text((520, 100), "Last {} Matches".format(len(target_replays)), fill="black", font=text_font)
     draw.text((642, 900), "Average APM (last 5 matches): {}".format(apm), fill="black", font=text_font)
 
-    back_im.show()
+    plt.close()
+
+    return back_im
 
 
 if __name__ == "__main__":
