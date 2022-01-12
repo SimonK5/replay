@@ -1,9 +1,6 @@
 from pandas import DataFrame
-import os
 from parsing.replay import Stage
-
-from parsing import Replay, Character, Player
-import time
+from parsing import Replay, Character
 from collections import Counter
 
 

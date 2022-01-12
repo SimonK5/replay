@@ -3,7 +3,6 @@ import io
 from PIL import Image, ImageDraw, ImageFont
 import matplotlib.pyplot as plt
 from parsing.replay import Stage
-import base64
 
 rivals = ["Zetterburn", "Orcane", "Wrastor", "Kragg", "Forsburn", "Maypul", "Absa", "Etalus", "Ori", "Ranno",
               "Clairen", "Sylvanos", "Elliana", "Shovel Knight"]
