@@ -71,37 +71,36 @@ def make_graphic(files):
     plt.switch_backend('Agg')
 
     replays = [r for r in ps.get_replays(files) if len(r.players) == 2]
+    if len(replays) == 0:
+        return None, 0
+
     target_name = ps.get_target_player(replays)
     target_replays = [r for r in replays if any(p.name == target_name for p in r.players)]
     my_chars, opp_chars = ps.player_char_count(target_replays, target_name)
 
-    back_im = Image.new("RGB", (1200, 1080), (255, 255, 255))
+    back_im = Image.new("RGB", (1200, 980), (255, 255, 255))
     draw = ImageDraw.Draw(back_im)
-    title_font = ImageFont.truetype("Arial.ttf", 75)
-
-    draw.text((200, 10), "Your Replay Folder Stats", fill="black", align="center", font=title_font)
 
     im1 = character_graph(my_chars, "My Character Usage")
     im2 = character_graph(opp_chars, "Opponent Character Usage")
 
-    back_im.paste(im1, (10, 150))
-    back_im.paste(im2, (10, 540))
+    back_im.paste(im1, (10, 50))
+    back_im.paste(im2, (10, 440))
 
     stage_count = ps.stage_count(replays)
 
     im3 = stage_graph(stage_count)
-    back_im.paste(im3, (600, 150))
+    back_im.paste(im3, (600, 50))
 
     apm = round(ps.avg_apm_recent(target_name, target_replays), ndigits=2)
 
-    text_font = ImageFont.truetype("Arial.ttf", 30)
+    text_font = ImageFont.truetype("frontend/Arial.ttf", 30)
 
-    draw.text((520, 100), "Last {} Matches".format(len(target_replays)), fill="black", font=text_font)
-    draw.text((642, 900), "Average APM (last 5 matches): {}".format(apm), fill="black", font=text_font)
+    draw.text((642, 800), "Average APM (last 5 matches): {}".format(apm), fill="black", font=text_font)
 
     plt.close()
 
-    return back_im
+    return back_im, len(target_replays)
 
 
 if __name__ == "__main__":
