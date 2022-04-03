@@ -5,17 +5,18 @@ import matplotlib.pyplot as plt
 from parsing.replay import Stage
 
 rivals = ["Zetterburn", "Orcane", "Wrastor", "Kragg", "Forsburn", "Maypul", "Absa", "Etalus", "Ori", "Ranno",
-              "Clairen", "Sylvanos", "Elliana", "Shovel Knight"]
+          "Clairen", "Sylvanos", "Elliana", "Shovel Knight"]
 stage_names = ["Treetop Lodge", "Fire Capitol", "Air Armada", "Rock Wall", "Merchant Port", "Blazing Hideout",
-            "Tower of Heaven", "Tempest Peak", "Frozen Fortress", "Aetherial Gates", "Endless Abyss",
-            "Spirit Tree", "Forest Floor", "Julesvale", "Troupple Pond"]
+               "Tower of Heaven", "Tempest Peak", "Frozen Fortress", "Aetherial Gates", "Endless Abyss",
+               "Spirit Tree", "Forest Floor", "Julesvale", "Troupple Pond"]
 
 
 def filter_extra_stage_freqs(stage_freq):
     """ Combines stage skins and deletes unused stage entries from the list of stage frequencies. """
     stage_freq[Stage.FIRE_CAPITOL] += stage_freq[Stage.NEO_FIRE_CAPITAL]
     stage_freq[Stage.AIR_ARMADA] += stage_freq[28]
-    stage_freq[Stage.ROCK_WALL] += stage_freq[Stage.CEO_RING] + stage_freq[Stage.ROA_RING]
+    stage_freq[Stage.ROCK_WALL] += stage_freq[Stage.CEO_RING] + \
+        stage_freq[Stage.ROA_RING]
     stage_freq[Stage.MERCHANT_PORT] += stage_freq[Stage.SWAMPY_ESTUARY]
     stage_freq[Stage.TOWER_HEAVEN] += stage_freq[Stage.AETHER_HIGH]
     stage_freq[Stage.AETHERIAL_GATES] += stage_freq[Stage.FROZEN_GATES]
@@ -75,7 +76,8 @@ def make_graphic(files):
         return None, 0
 
     target_name = ps.get_target_player(replays)
-    target_replays = [r for r in replays if any(p.name == target_name for p in r.players)]
+    target_replays = [r for r in replays if any(
+        p.name == target_name for p in r.players)]
     my_chars, opp_chars = ps.player_char_count(target_replays, target_name)
 
     back_im = Image.new("RGB", (1200, 980), (255, 255, 255))
@@ -96,7 +98,8 @@ def make_graphic(files):
 
     text_font = ImageFont.truetype("frontend/Arial.ttf", 30)
 
-    draw.text((642, 800), "Average APM (last 5 matches): {}".format(apm), fill="black", font=text_font)
+    draw.text((642, 800), "Average APM (last 5 matches): {}".format(
+        apm), fill="black", font=text_font)
 
     plt.close()
 

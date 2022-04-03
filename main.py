@@ -14,7 +14,6 @@ def index():
 def get_stats():
     uploaded_files = request.files.getlist("file[]")
 
-    print(uploaded_files)
     im, num_replays = make_graphic(uploaded_files)
 
     if num_replays == 0:

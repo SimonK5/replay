@@ -109,6 +109,7 @@ def get_target_player(replays):
         elif possible_player_names[1] in replay_names:
             return possible_player_names[1]
 
+    return possible_player_names[0]
 
 if __name__ == "__main__":
     replays = [r for r in get_replays("../replays/salmon-replays") if len(r.players) == 2]
