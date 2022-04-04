@@ -12,10 +12,7 @@ def stage_count(replays):
         if int(replay.stage) < 1:
             raise Exception("Invalid Replay: Incorrect Stage", replay.name)
 
-        if replay.stage == Stage.DIAMOND_GROVE:
-            count[28] += 1
-        else:
-            count[replay.stage] += 1
+        count[replay.stage] += 1
 
     return count
 

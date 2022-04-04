@@ -35,6 +35,10 @@ class Stage(enum.IntEnum):
     FROZEN_GATES = 25
     TUTORIAL_GRID = 26
     ROA_RING = 27
+    BLANK_1 = 28
+    BLANK_2 = 29
+    BLANK_3 = 30
+    BLANK_4 = 31
     NEO_BLAZING_RAIL = 32
     HIGHDIVE_HIDEAWAY = 33
     NEO_JULESVALE = 34

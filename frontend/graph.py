@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from parsing.replay import Stage
 
 rivals = ["Zetterburn", "Orcane", "Wrastor", "Kragg", "Forsburn", "Maypul", "Absa", "Etalus", "Ori", "Ranno",
-          "Clairen", "Sylvanos", "Elliana", "Shovel Knight"]
+          "Clairen", "Sylvanos", "Elliana", "Shovel Knight", "Mollo", "Hodan", "Pomme", "Olympia"]
 stage_names = ["Treetop Lodge", "Fire Capitol", "Air Armada", "Rock Wall", "Merchant Port", "Blazing Hideout",
                "Tower of Heaven", "Tempest Peak", "Frozen Fortress", "Aetherial Gates", "Endless Abyss",
                "Spirit Tree", "Forest Floor", "Julesvale", "Troupple Pond"]
@@ -14,7 +14,7 @@ stage_names = ["Treetop Lodge", "Fire Capitol", "Air Armada", "Rock Wall", "Merc
 def filter_extra_stage_freqs(stage_freq):
     """ Combines stage skins and deletes unused stage entries from the list of stage frequencies. """
     stage_freq[Stage.FIRE_CAPITOL] += stage_freq[Stage.NEO_FIRE_CAPITAL]
-    stage_freq[Stage.AIR_ARMADA] += stage_freq[28]
+    stage_freq[Stage.AIR_ARMADA] += stage_freq[Stage.DIAMOND_GROVE]
     stage_freq[Stage.ROCK_WALL] += stage_freq[Stage.CEO_RING] + \
         stage_freq[Stage.ROA_RING]
     stage_freq[Stage.MERCHANT_PORT] += stage_freq[Stage.SWAMPY_ESTUARY]
@@ -22,6 +22,11 @@ def filter_extra_stage_freqs(stage_freq):
     stage_freq[Stage.AETHERIAL_GATES] += stage_freq[Stage.FROZEN_GATES]
     stage_freq[Stage.ENDLESS_ABYSS] += stage_freq[Stage.TUTORIAL_GRID]
     stage_freq[Stage.TROUPPLE_POND] += stage_freq[Stage.PRIDEMOOR_KEEP]
+
+    stage_freq[Stage.BLAZING_HIDEOUT] += stage_freq[Stage.NEO_BLAZING_RAIL]
+    stage_freq[Stage.TREETOP_LODGE] += stage_freq[Stage.HIGHDIVE_HIDEAWAY]
+    stage_freq[Stage.JULESVALE] += stage_freq[Stage.NEO_JULESVALE]
+    stage_freq[Stage.FOREST_FLOOR] += stage_freq[Stage.CRYSTAL_OASIS]
 
     return stage_freq[1:6] + stage_freq[7:13] + [stage_freq[15]] + stage_freq[19:22]
 
