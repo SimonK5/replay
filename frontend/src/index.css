@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.header {
+  background: #23233a;
+  font-size: 30px;
+  font-weight: 400;
+  height: 40px;
+  display: block;
+  width: 100%;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.title {
+  display: inline-block;
+}
+
+.logo {
+  color: inherit;
+  position: relative;
+  left: 290px;
+  vertical-align: bottom;
+}
+
+.description{
+  font-size: 100px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 800px;
+  transform: scale(0.94);
+  animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+.recharts-wrapper {
+  margin : 0 auto;
+}
+
+.chart {
+  display: inline-block;
+}
+
+.chartTitle{
+  font-weight: bold
+}
+
+.btn {
+  display: inline-block;
+  background: rgb(61, 63, 71);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}

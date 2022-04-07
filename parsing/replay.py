@@ -45,6 +45,7 @@ class Stage(enum.IntEnum):
     CRYSTAL_OASIS = 35
     DIAMOND_GROVE = 36
 
+
 class StageType(enum.IntEnum):
     INVALID = -1
     BASIC = 0
