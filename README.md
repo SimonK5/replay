@@ -3,4 +3,4 @@ A web application that visualizes character, stage, and APM data from a folder o
 
 Try it out at https://rivals-replay-stats.ue.r.appspot.com/.
 
-![replay-output](https://user-images.githubusercontent.com/32185431/149271895-fb965a37-6aeb-44c8-8803-637f05a4b18e.jpg)
+<img width="902" alt="replay stats example" src="https://user-images.githubusercontent.com/32185431/162334822-ec59544a-2606-4822-81bf-d395c83fd94a.png">
