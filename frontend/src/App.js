@@ -40,9 +40,10 @@ function App() {
         </h1>
       )}
       <Form handleSubmit={onSubmit} />
+      {!showData && <img src={require("./roa_logo.png")} />}
       {showData &&
         (typeof data.num_replays === "undefined" ? (
-          <Dots />
+          <Dots dotColors={["#3d3f47"]} />
         ) : (
           <div>
             <h1>Your Replay Folder Stats</h1>

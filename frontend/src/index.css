@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #dddde0;
 }
 
 code {
@@ -25,6 +26,9 @@ code {
 
 .title {
   display: inline-block;
+  text-align: center;
+  position: relative;
+  left: 15px
 }
 
 .logo {

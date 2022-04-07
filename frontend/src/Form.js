@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Form = ({ handleSubmit }) => {
   const replaysRef = useRef([]);
+  const [emptyUploadError, setEmptyUploadError] = useState(false);
 
   function myCustomFileGetter(event) {
     const files = [];
@@ -19,25 +20,19 @@ const Form = ({ handleSubmit }) => {
     return files;
   }
 
-  async function readFileAsDataURL(file) {
+  async function readFileAsText(file) {
     let result = await new Promise((resolve) => {
       let fileReader = new FileReader();
       fileReader.onload = () => resolve(fileReader.result);
       fileReader.readAsBinaryString(file);
     });
 
-    // console.log(result); // aGV5IHRoZXJl...
-
     return result;
   }
 
-  async function decodeAndSubmit(files) {
-    const roa_files = files.filter(
-      (f) => f.name.substring(f.name.length - 3) === "roa"
-    );
-
-    const new_roa_files = roa_files.map((file) => readFileAsDataURL(file));
-    await Promise.all(new_roa_files).then((values) => {
+  async function decodeAndSubmit(roa_files) {
+    const roa_files_text = roa_files.map((file) => readFileAsText(file));
+    await Promise.all(roa_files_text).then((values) => {
       handleSubmit(values);
     });
   }
@@ -47,15 +42,19 @@ const Form = ({ handleSubmit }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          decodeAndSubmit(replaysRef.current);
+
+          const roa_files = replaysRef.current.filter(
+            (f) => f.name.substring(f.name.length - 3) === "roa"
+          );
+
+          if (roa_files.length === 0) {
+            setEmptyUploadError(true);
+          } else {
+            setEmptyUploadError(false);
+            decodeAndSubmit(roa_files);
+          }
         }}
       >
-        {/* <label
-          htmlFor="filePicker"
-          style={{ background: "grey", padding: "5px 10px" }}
-        >
-          Upload Replay folder
-        </label> */}
         <input
           id="filePicker"
           type="file"
@@ -70,6 +69,7 @@ const Form = ({ handleSubmit }) => {
         />
 
         <button className="btn">Submit</button>
+        {emptyUploadError && <p>No valid files uploaded!</p>}
       </form>
     </div>
   );
