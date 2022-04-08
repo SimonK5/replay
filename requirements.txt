@@ -5,5 +5,4 @@ numpy==1.21.3
 pandas==1.4.2
 Pillow==9.1.0
 pytest==6.2.5
-win32gui==221.6
 gunicorn==20.1.0
