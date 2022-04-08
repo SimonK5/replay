@@ -4,7 +4,7 @@ numpy~=1.21.4
 matplotlib~=3.5.1
 Pillow~=9.0.0
 flask-restful
-flask-corsabsl-py==0.11.0
+flask-corsabsl-py
 aiohttp==3.7.4.post0
 aniso8601==9.0.1
 async-timeout==3.0.1

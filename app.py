@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, request, send_from_directory
 from stats.player_stats import get_stats
 from flask_cors import CORS
 
