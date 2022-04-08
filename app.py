@@ -1,12 +1,12 @@
 from flask import Flask, request, send_from_directory
 from stats.player_stats import get_stats
-from flask_cors import CORS
+# from flask_cors import CORS
 
 app = Flask(__name__, static_folder='frontend/build')
 
 
-cors = CORS()
-cors.init_app(app)
+# cors = CORS()
+# cors.init_app(app)
 
 
 @app.route('/')
