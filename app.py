@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 
 
 # cors = CORS()
-# cors.init_app(app)
+# cors.init_app(app) a
 
 
 @app.route("/", defaults={'path': ''})
