@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./Form";
 import { DataVisual } from "./DataVisual";
 import { Header } from "./Header";
@@ -31,8 +31,13 @@ function App() {
       });
   }
 
+  useEffect(() => {
+    document.title = "Rivals Replay Stats";
+  }, []);
+
   return (
     <div className="App">
+      <title>Rivals Replay Stats</title>
       <Header />
       {!showData && (
         <h1 className="description">
