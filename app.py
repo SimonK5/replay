@@ -1,15 +1,17 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from stats.player_stats import get_stats
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend/build')
 
 
 cors = CORS()
 cors.init_app(app)
-# @app.route('/')
-# def index():
-#     return render_template("index.html")
+
+
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 # @app.route("/", methods=['POST'])
