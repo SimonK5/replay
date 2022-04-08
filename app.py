@@ -11,7 +11,8 @@ app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 
 @app.route('/')
 def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+    # return send_from_directory(app.static_folder, 'index.html')
+    return "test"
 
 
 # @app.route("/", methods=['POST'])
