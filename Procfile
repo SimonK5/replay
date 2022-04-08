@@ -1,2 +1,3 @@
 web: gunicorn app:app
-web: npm run start
+web: heroku-prebuild
+web: start
