@@ -10,7 +10,7 @@ app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 
 
 @app.route('/', defaults={'path': ''})
-def run_app():
+def run_app(path):
     return send_from_directory(app.static_folder, 'index.html')
 
 
