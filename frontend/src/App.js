@@ -14,7 +14,7 @@ function App() {
     setShowData(true);
 
     if (files.length === 0) return;
-    fetch("http://localhost:5000/poststats", {
+    fetch("https://rivals-replay-stats.herokuapp.com/poststats", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
