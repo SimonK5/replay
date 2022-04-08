@@ -2,17 +2,16 @@ from flask import Flask, request, send_from_directory
 from stats.player_stats import get_stats
 # from flask_cors import CORS
 
-app = Flask(__name__, static_url_path='', static_folder='frontend/build')
+app = Flask(__name__, static_folder='frontend/build')
 
 
 # cors = CORS()
 # cors.init_app(app)
 
 
-@app.route('/')
+@app.route('/', defaults={'path': ''})
 def serve():
-    # return send_from_directory(app.static_folder, 'index.html')
-    return "test :)"
+    return send_from_directory(app.static_folder, 'index.html')
 
 
 # @app.route("/", methods=['POST'])
