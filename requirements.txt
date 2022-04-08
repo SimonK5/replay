@@ -21,7 +21,6 @@ constantly==15.1.0
 cryptography==35.0.0
 cycler==0.10.0
 decorator==5.1.0
-Flask==2.1.1
 Flask-RESTful==0.3.9
 freetype-py==2.2.0
 google-api-core==1.26.2
