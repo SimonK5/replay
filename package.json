@@ -8,7 +8,7 @@
     "save": "^2.4.0"
   },
   "scripts": {
-    "heroku-prebuild": "cd frontend && npm install && npm run build",
+    "heroku-prebuild": "cd frontend && npm install --save && npm run build",
     "start": "cd frontend && npm start"
     }
 }
